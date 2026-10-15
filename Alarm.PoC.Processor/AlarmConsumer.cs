@@ -1,21 +1,27 @@
-﻿using Alarm.PoC.Contracts;
+﻿
+using Alarm.PoC.Contracts;
 using MassTransit;
 
 namespace Alarm.PoC.Processor;
 
 public class AlarmConsumer : IConsumer<AlarmEvent>
 {
+    public static string ClassifyAlarm(string? alarmType)
+    {
+        return alarmType?.ToUpperInvariant() switch
+        {
+            "SMOKE" => "CRITICAL",
+            "PANIC" => "CRITICAL",
+            "MOTION" => "WARNING",
+            _ => "INFO"
+        };
+    }
+
+
     public Task Consume(ConsumeContext<AlarmEvent> context)
     {
         var alarm = context.Message;
-
-        var level = alarm.AlarmType switch
-        {
-            "Smoke" => "CRITICAL",
-            "Panic" => "CRITICAL",
-            "Motion" => "WARNING",
-            _ => "INFO"
-        };
+        var level = ClassifyAlarm(alarm.AlarmType);
 
         Console.ForegroundColor = level switch
         {

@@ -4,11 +4,11 @@ public record AlarmEvent
 {
     public Guid EventId { get; init; }
 
-    public string DeviceId { get; init; }
+    public required string DeviceId { get; init; }
 
-    public string CustomerId { get; init; }
+    public required string CustomerId { get; init; }
 
-    public string AlarmType { get; init; }
+    public required string AlarmType { get; init; }
 
     public DateTime CreatedUtc { get; init; }
 }

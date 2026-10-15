@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Alarm.PoC.Contracts\Alarm.PoC.Contracts.csproj" />
-    <ProjectReference Include="..\Alarm.PoC.EventBus\Alarm.PoC.EventBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>

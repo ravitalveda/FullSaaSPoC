@@ -1,8 +1,8 @@
 <Solution>
   <Project Path="Alarm.PoC.AIAnalyzer/Alarm.PoC.AIAnalyzer.csproj" />
   <Project Path="Alarm.PoC.Contracts/Alarm.PoC.Contracts.csproj" />
-  <Project Path="Alarm.PoC.EventBus/Alarm.PoC.EventBus.csproj" />
   <Project Path="Alarm.PoC.Notification/Alarm.PoC.Notification.csproj" />
+  <Project Path="Alarm.PoC.Processor.Tests/Alarm.PoC.Processor.Tests.csproj" Id="07ddac27-7d00-44ca-bc8d-d8db9472094e" />
   <Project Path="Alarm.PoC.Processor/Alarm.PoC.Processor.csproj" />
   <Project Path="Alarm.PoC.Simulator/Alarm.PoC.Simulator.csproj" />
 </Solution>
