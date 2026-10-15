@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="SectorAlarm.PoC.AIAnalyzer/SectorAlarm.PoC.AIAnalyzer.csproj" />
+  <Project Path="SectorAlarm.PoC.Contracts/SectorAlarm.PoC.Contracts.csproj" />
+  <Project Path="SectorAlarm.PoC.EventBus/SectorAlarm.PoC.EventBus.csproj" />
+  <Project Path="SectorAlarm.PoC.Notification/SectorAlarm.PoC.Notification.csproj" />
+  <Project Path="SectorAlarm.PoC.Simulator/SectorAlarm.PoC.Simulator.csproj" />
+  <Project Path="SectorAlarm.PoC/SectorAlarm.PoC.Processor.csproj" />
+</Solution>
