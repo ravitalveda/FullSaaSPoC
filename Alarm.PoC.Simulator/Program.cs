@@ -9,6 +9,7 @@ var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
 await bus.StartAsync();
 
 Console.WriteLine("Alarm Simulator Started");
+Console.WriteLine("Testing yaml file");
 
 var alarms = new[]
 {
