@@ -1,17 +1,26 @@
-﻿using MassTransit;
-using Alarm.PoC.Contracts;
-using Alarm.PoC.EventBus;
+﻿using Alarm.PoC.Notification;
+using MassTransit;
+using Microsoft.Extensions.Hosting;
 
-Console.WriteLine("Notification Started");
+var builder = Host.CreateApplicationBuilder(args);
 
-EventHub.AlarmRaised += alarm =>
+builder.Services.AddMassTransit(x =>
 {
-    Console.ForegroundColor = ConsoleColor.Green;
+    x.AddConsumer<NotificationConsumer>();
 
-    Console.WriteLine(
-        $"SMS => Customer {alarm.CustomerId} : {alarm.AlarmType}");
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost");
 
-    Console.ResetColor();
-};
+        cfg.ReceiveEndpoint("alarm-notification", e =>
+        {
+            e.ConfigureConsumer<NotificationConsumer>(context);
+        });
+    });
+});
 
-Console.ReadLine();
+var app = builder.Build();
+
+Console.WriteLine("Alarm Notification started...");
+
+await app.RunAsync();

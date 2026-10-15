@@ -3,6 +3,6 @@
   <Project Path="Alarm.PoC.Contracts/Alarm.PoC.Contracts.csproj" />
   <Project Path="Alarm.PoC.EventBus/Alarm.PoC.EventBus.csproj" />
   <Project Path="Alarm.PoC.Notification/Alarm.PoC.Notification.csproj" />
+  <Project Path="Alarm.PoC.Processor/Alarm.PoC.Processor.csproj" />
   <Project Path="Alarm.PoC.Simulator/Alarm.PoC.Simulator.csproj" />
-  <Project Path="Alarm.PoC/Alarm.PoC.Processor.csproj" />
 </Solution>

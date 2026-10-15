@@ -1,36 +1,32 @@
-﻿using Alarm.AIAnalyzer;
+﻿using Alarm.PoC.AIAnalyzer;
 using MassTransit;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
+var builder = Host.CreateApplicationBuilder(args);
 
-namespace Alarm.PoC.AIAnalyzer;
+builder.Services.AddHttpClient();
 
-internal class Program
+builder.Services.AddMassTransit(x =>
 {
-    private static async Task Main(string[] args)
+    x.AddConsumer<AlarmAiConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
     {
-        var builder = Host.CreateDefaultBuilder(args);
+        cfg.Host("localhost");
 
-        builder.ConfigureServices(services =>
+        cfg.ReceiveEndpoint("alarm-ai", e =>
         {
-            services.AddMassTransit(x =>
-            {
-                x.AddConsumer<AlarmAiConsumer>();
+            e.ConfigureConsumer<AlarmAiConsumer>(context);
 
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host("localhost");
-
-                    cfg.ReceiveEndpoint("alarm-ai", e =>
-                    {
-                        e.ConfigureConsumer<AlarmAiConsumer>(context);
-                    });
-                });
-            });
+            e.UseMessageRetry(r =>
+                r.Interval(3, TimeSpan.FromSeconds(5)));
         });
+    });
+});
 
-        var host = builder.Build();
+var app = builder.Build();
 
-        await host.RunAsync();
-    }
-}
+Console.WriteLine("Alarm AI Analyzer started...");
+
+await app.RunAsync();

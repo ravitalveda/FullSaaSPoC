@@ -1,78 +1,73 @@
-﻿using MassTransit;
-using Alarm.PoC.AIAnalyzer;
-using Alarm.PoC.Contracts;
-using System.Text;
-using System.Text.Json;
+﻿using Alarm.PoC.Contracts;
+using MassTransit;
+using System.Net.Http.Json;
 
-namespace Alarm.AIAnalyzer;
+namespace Alarm.PoC.AIAnalyzer;
 
-public class AlarmAiConsumer : IConsumer<AlarmEvent>
+public sealed class AlarmAiConsumer : IConsumer<AlarmEvent>
 {
     private readonly HttpClient _httpClient;
 
-    public AlarmAiConsumer()
+    public AlarmAiConsumer(HttpClient httpClient)
     {
-        _httpClient = new HttpClient();
+        _httpClient = httpClient;
     }
 
     public async Task Consume(ConsumeContext<AlarmEvent> context)
     {
-        var alarm = context.Message;
-
-        var prompt = $"""
-            You are an alarm monitoring AI.
-
-            Analyze the following alarm event:
-
-            Alarm Type: {alarm.AlarmType}
-            Device Id: {alarm.DeviceId}
-            Customer Id: {alarm.CustomerId}
-
-            Return:
-            - Risk Level
-            - Confidence Percentage
-            - Recommendation
-
-            Keep the response under 3 sentences.
-            """;
-
-        var request = new
+        try
         {
-            model = "phi3",
-            prompt,
-            stream = false
-        };
+            var alarm = context.Message;
 
-        var json = JsonSerializer.Serialize(request);
+            var prompt = $"""
+                You are a Sector Alarm risk assessment assistant.
 
-        var response = await _httpClient.PostAsync(
-            "http://localhost:11434/api/generate",
-            new StringContent(
-                json,
-                Encoding.UTF8,
-                "application/json"));
+                Alarm Type: {alarm.AlarmType}
+                Device Id: {alarm.DeviceId}
+                Customer Id: {alarm.CustomerId}
 
-        response.EnsureSuccessStatusCode();
+                Respond in this format:
 
-        var resultJson = await response.Content.ReadAsStringAsync();
+                Risk Level:
+                Confidence:
+                Recommendation:
+                """;
 
-        var result =
-            JsonSerializer.Deserialize<OllamaResponse>(
-                resultJson,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var request = new
+            {
+                model = "phi3",
+                prompt,
+                stream = false
+            };
 
-        Console.ForegroundColor = ConsoleColor.Cyan;
+            var response = await _httpClient.PostAsJsonAsync(
+                "http://localhost:11434/api/generate",
+                request);
 
-        Console.WriteLine();
-        Console.WriteLine("===== AI ANALYSIS =====");
-        Console.WriteLine($"Alarm : {alarm.AlarmType}");
-        Console.WriteLine(result?.Response);
-        Console.WriteLine("=======================");
-        Console.WriteLine();
+            response.EnsureSuccessStatusCode();
 
-        Console.ResetColor();
+            var result =
+                await response.Content.ReadFromJsonAsync<OllamaResponse>();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine();
+            Console.WriteLine("===== AI ANALYSIS =====");
+            Console.WriteLine($"Alarm Type : {alarm.AlarmType}");
+            Console.WriteLine($"Device Id  : {alarm.DeviceId}");
+            Console.WriteLine($"CustomerId : {alarm.CustomerId}");
+            Console.WriteLine();
+            Console.WriteLine(result?.Response);
+            Console.WriteLine("=======================");
+            Console.WriteLine();
+
+            Console.ResetColor();
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"AI Analysis Failed: {ex.Message}");
+            Console.ResetColor();
+        }
     }
 }
