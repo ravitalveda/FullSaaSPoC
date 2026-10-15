@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using SectorAlarm.PoC.Contracts;
+using Alarm.PoC.Contracts;
 
 var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
 {

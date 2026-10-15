@@ -1,4 +1,4 @@
-﻿namespace SectorAlarm.PoC.Contracts;
+﻿namespace Alarm.PoC.Contracts;
 
 public record AlarmEvent
 {

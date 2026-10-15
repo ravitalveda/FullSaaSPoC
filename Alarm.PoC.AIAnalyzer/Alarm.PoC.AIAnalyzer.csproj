@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SectorAlarm.PoC.Contracts\SectorAlarm.PoC.Contracts.csproj" />
+    <ProjectReference Include="..\Alarm.PoC.Contracts\Alarm.PoC.Contracts.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
   </ItemGroup>
 

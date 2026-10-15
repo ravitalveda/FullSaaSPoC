@@ -3,7 +3,7 @@ using MassTransit;
 using Microsoft.Extensions.Hosting;
 
 
-namespace SectorAlarm.PoC.AIAnalyzer;
+namespace Alarm.PoC.AIAnalyzer;
 
 internal class Program
 {

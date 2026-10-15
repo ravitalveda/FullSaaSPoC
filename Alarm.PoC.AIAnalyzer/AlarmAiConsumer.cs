@@ -1,6 +1,6 @@
 ﻿using MassTransit;
-using SectorAlarm.PoC.AIAnalyzer;
-using SectorAlarm.PoC.Contracts;
+using Alarm.PoC.AIAnalyzer;
+using Alarm.PoC.Contracts;
 using System.Text;
 using System.Text.Json;
 

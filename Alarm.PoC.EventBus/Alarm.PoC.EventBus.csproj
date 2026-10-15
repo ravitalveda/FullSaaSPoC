@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SectorAlarm.PoC.Contracts\SectorAlarm.PoC.Contracts.csproj" />
+    <ProjectReference Include="..\Alarm.PoC.Contracts\Alarm.PoC.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

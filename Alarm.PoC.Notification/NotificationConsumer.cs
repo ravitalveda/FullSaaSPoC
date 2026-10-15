@@ -1,6 +1,6 @@
 ﻿using MassTransit;
-using SectorAlarm.PoC.Contracts;
-using SectorAlarm.PoC.EventBus;
+using Alarm.PoC.Contracts;
+using Alarm.PoC.EventBus;
 
 public class NotificationConsumer : IConsumer<AlarmEvent>
 {

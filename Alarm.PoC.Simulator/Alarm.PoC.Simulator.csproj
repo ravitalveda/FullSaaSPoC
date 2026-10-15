@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SectorAlarm.PoC.Contracts\SectorAlarm.PoC.Contracts.csproj" />
-    <ProjectReference Include="..\SectorAlarm.PoC.EventBus\SectorAlarm.PoC.EventBus.csproj" />
+    <ProjectReference Include="..\Alarm.PoC.Contracts\Alarm.PoC.Contracts.csproj" />
+    <ProjectReference Include="..\Alarm.PoC.EventBus\Alarm.PoC.EventBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>

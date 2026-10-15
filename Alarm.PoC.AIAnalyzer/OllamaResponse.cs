@@ -1,4 +1,4 @@
-﻿namespace SectorAlarm.PoC.AIAnalyzer;
+﻿namespace Alarm.PoC.AIAnalyzer;
 
 public class OllamaResponse
 {

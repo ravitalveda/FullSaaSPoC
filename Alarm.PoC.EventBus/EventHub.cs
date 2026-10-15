@@ -1,6 +1,6 @@
-﻿using SectorAlarm.PoC.Contracts;
+﻿using Alarm.PoC.Contracts;
 
-namespace SectorAlarm.PoC.EventBus
+namespace Alarm.PoC.EventBus
 {
     public static class EventHub
     {
